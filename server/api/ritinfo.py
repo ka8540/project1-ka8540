@@ -16,17 +16,20 @@ def list_info_items():
     return result
 
 def insert_info_item(**kwargs):
-    """ Insert item into the database and return its details. """
-    print("Received DATATATATATATAT:",kwargs)
+    """Insert item into the database and return its ID."""
+    print("Received DATA:", kwargs)
     firstname = kwargs.get('firstname')
     lastname = kwargs.get('lastname')
     email = kwargs.get('email')
     uid = kwargs.get('uid')
     mobilenumber = kwargs.get('mobilenumber')
-    sql = '''INSERT INTO infoDetail (firstname,lastname,email,uid,mobileNum) 
-             VALUES (%s, %s, %s,%s,%s) RETURNING id;'''
-    
-    return exec_commit(sql, (firstname,lastname,email,uid,mobilenumber))
+    sql = '''INSERT INTO infoDetail (firstname, lastname, email, uid, mobileNum) 
+             VALUES (%s, %s, %s, %s, %s) RETURNING id;'''
+    args = (firstname, lastname, email, uid, mobilenumber)
+    inserted_id = exec_commit(sql, args)
+    print(inserted_id)
+    return inserted_id
+
 
 def update_info_item(**kwargs):
     """ Update a food item in the database and return its details. """

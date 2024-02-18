@@ -48,12 +48,23 @@ def exec_get_all(sql, args={}):
     return list_of_tuples
 
 def exec_commit(sql, args={}):
-    conn = connect()
-    cur = conn.cursor()
-    result = cur.execute(sql, args)
-    conn.commit()
-    conn.close()
-    return result
+    """Execute SQL command with arguments and return the ID of the inserted row."""
+    conn = None
+    inserted_id = None
+    try:
+        conn = connect()  # Make sure this function returns a valid connection
+        cur = conn.cursor()
+        cur.execute(sql, args)
+        inserted_id = cur.fetchone()[0]  # Fetch the ID of the inserted row
+        conn.commit()
+    except Exception as e:
+        print(f"Database error: {e}")
+    finally:
+        if cur is not None:
+            cur.close()
+        if conn is not None:
+            conn.close()
+    return inserted_id
 
 def key_exists(key, **kwargs):
     """return the value for the given key if exist in the **kwargs.

@@ -12,6 +12,26 @@ import json
 # class Version(Resource):
 #     def get(self):
 #         return (exec_get_one('SELECT VERSION()'))
+class InfoItem:
+    def __init__(self, firstname, lastname, email, uid, mobilenumber):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.email = email
+        self.uid = uid
+        self.mobilenumber = mobilenumber
+    def accept(self, visitor):
+        return visitor.visit_info_item(self)
+    
+class InfoItemVisitor:
+    def visit_info_item(self, info_item):
+        raise NotImplementedError
+    
+class InfoItemValidator(InfoItemVisitor):
+    def visit_info_item(self, info_item):
+        errors = []
+        if '@' not in info_item.email:
+            errors.append('Invalid email address')
+        return errors
 
 class InfoDetails(Resource):
     def get(self):
@@ -26,14 +46,17 @@ class InfoDetails(Resource):
         parser.add_argument('uid', type=str, required=True, location='json')
         parser.add_argument('mobilenumber', type=str, required=True, location='json')
         args = parser.parse_args()
-        print("Received Data:", args)
-        response = insert_info_item(
-            firstname=args['firstname'],
-            lastname=args['lastname'], 
-            email=args['email'],
-            uid=args['uid'],
-            mobilenumber=args['mobilenumber']
-        )
+
+        info_item = InfoItem(args['firstname'], args['lastname'], args['email'], args['uid'], args['mobilenumber']) 
+
+        # Validate the info item using the Visitor pattern
+        validator = InfoItemValidator()
+        errors = info_item.accept(validator)
+        print(errors)
+            
+
+        # If validation passes, insert the item
+        response = insert_info_item(**args)
         return jsonify(response)
 
 
