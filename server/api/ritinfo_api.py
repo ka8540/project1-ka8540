@@ -20,14 +20,16 @@ class InfoDetails(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id', type=str, location='json')
-        parser.add_argument('name', type=str, required=True, location='json')
+        parser.add_argument('firstname', type=str, required=True, location='json')
+        parser.add_argument('lastname', type=str, required=True, location='json')
         parser.add_argument('email', type=str, required=True, location='json')
         parser.add_argument('uid', type=str, required=True, location='json')
         parser.add_argument('mobilenumber', type=str, required=True, location='json')
         args = parser.parse_args()
         print("Received Data:", args)
         response = insert_info_item(
-            name=args['name'], 
+            firstname=args['firstname'],
+            lastname=args['lastname'], 
             email=args['email'],
             uid=args['uid'],
             mobilenumber=args['mobilenumber']
@@ -40,7 +42,8 @@ class InfoDetails(Resource):
         parser = reqparse.RequestParser()
         print("item_id",item_id)
         parser.add_argument('id', type=str, location='json')
-        parser.add_argument('name', type=str, required=True, location='json')
+        parser.add_argument('firstname', type=str, required=True, location='json')
+        parser.add_argument('lastname', type=str, required=True, location='json')
         parser.add_argument('email', type=str, required=True, location='json')
         parser.add_argument('uid', type=str, required=True, location='json')
         parser.add_argument('mobilenumber',type=str, required=True,location='json')
@@ -48,7 +51,8 @@ class InfoDetails(Resource):
         args = parser.parse_args()
         response = update_info_item(
             item_id=item_id, 
-            name=args['name'], 
+            firstname=args['firstname'],
+            lastname=args['lastname'], 
             email=args['email'],
             uid=args['uid'],
             mobilenumber=args['moobilenumber']

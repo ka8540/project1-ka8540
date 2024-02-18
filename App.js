@@ -3,7 +3,8 @@ import { SafeAreaView, Alert, StyleSheet, Text, View, TextInput, TouchableOpacit
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
-  const [name, setName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
   const [mobilenumber, setMobileNumber] = useState('');
@@ -14,7 +15,8 @@ export default function App() {
   
     // Form data to be sent
     const formData = {
-      name: name,
+      firstname: firstname,
+      lastname: lastname,
       email: email,
       uid: number,
       mobilenumber: mobilenumber,
@@ -55,12 +57,20 @@ export default function App() {
       {/* App Content */}
       <View style={styles.content}>
         <Text style={styles.header}>Student Information</Text>
+        <View style={styles.row}>
         <TextInput
-          style={styles.input}
-          placeholder="Name"
-          value={name}
-          onChangeText={setName}
+          style={[styles.input, styles.halfInput]}
+          placeholder="Firstname"
+          value={firstname}
+          onChangeText={setFirstName}
         />
+        <TextInput
+          style={[styles.input, styles.halfInput]}
+          placeholder="Lastname"
+          value={lastname}
+          onChangeText={setLastName}
+        />
+      </View>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -150,5 +160,13 @@ const styles = StyleSheet.create({
     height: 100, // Adjust the height as needed
     borderRadius: 10,
     marginVertical: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+  },
+  halfInput: {
+    width: '48%', 
   }
 });
