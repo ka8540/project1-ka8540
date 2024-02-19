@@ -69,4 +69,4 @@ Contributions to this project are welcome. Please fork the repository and submit
 
 ## Screenshots
 
-![RIT APP](URL "/Users/kayahir/Desktop/project1-ka8540/RITInfo/images/S1.png")
+![RIT APP](/Users/kayahir/Desktop/project1-ka8540/RITInfo/images/S1.png)
