@@ -46,10 +46,10 @@ Set up a PostgreSQL database and apply the schema from infoDetail.sql.
 
 ## API Reference
 
-POST /infoitem: Submit new student information.
-GET /infoitem: Retrieve all student records.
-PUT /infoitem/<id>: Update a specific student record.
-DELETE /infoitem/<id>: Delete a specific student record.
+1. POST /infoitem: Submit new student information.
+2. GET /infoitem: Retrieve all student records.
+3. PUT /infoitem/<id>: Update a specific student record.
+4. DELETE /infoitem/<id>: Delete a specific student record.
 
 ## Features
 
