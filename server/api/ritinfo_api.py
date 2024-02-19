@@ -5,48 +5,50 @@ from .swen_610_db_utils import *
 from .ritinfo import * 
 import json
 
-# Define an InfoItem class that represents an entity containing user details.
+# InfoItem class represents an entity and acts as an "Element" in the Visitor pattern.
+# It contains data related to a user and can accept visitors to perform various operations.
 class InfoItem:
-    # Constructor to initialize an InfoItem object with necessary attributes.
     def __init__(self, firstname, lastname, email, uid, mobilenumber):
+        # Initialization with user details.
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
         self.uid = uid
         self.mobilenumber = mobilenumber
 
-    # Accept method that allows a visitor to perform operations on the InfoItem instance.
-    # This method is part of the Visitor pattern and allows for extending functionality without modifying the class.
+    # The accept method allows the Visitor to perform operations on the InfoItem instance.
+    # This method is crucial for implementing the Visitor pattern, enabling operations without changing the class.
     def accept(self, visitor):
         return visitor.visit_info_item(self)
 
-# Abstract base class for visitors that perform operations on InfoItem instances.
+# InfoItemVisitor acts as the base class for any visitors that perform operations on InfoItems.
+# This follows the Visitor pattern by declaring a visit operation for the InfoItem elements.
 class InfoItemVisitor:
     def visit_info_item(self, info_item):
-        # Placeholder method to be overridden by concrete visitor implementations.
+        # Intended to be overridden by concrete visitors with specific implementations.
         raise NotImplementedError
 
-# Concrete visitor class for validating InfoItem instances.
+# Concrete visitor for validating InfoItem instances.
+# Implements the InfoItemVisitor interface and provides specific validation logic.
 class InfoItemValidator(InfoItemVisitor):
     def visit_info_item(self, info_item):
-        # Perform validation checks on the InfoItem instance.
+        # Validation logic to ensure the email address format is correct.
         errors = []
         if '@' not in info_item.email:
             errors.append('Invalid email address')
-        # Return a list of any found errors.
         return errors
 
-# Resource class for handling CRUD operations on info items via RESTful APIs.
+# InfoDetails resource class for CRUD operations on info items via RESTful APIs.
+# Demonstrates the use of the Visitor pattern in a web application context.
 class InfoDetails(Resource):
-    # Handle GET requests to fetch all info items.
     def get(self):
-        # Utilize a utility function to fetch and return all info items as JSON.
+        # Fetch and return all info items, demonstrating retrieval without direct element manipulation.
         return jsonify(list_info_items())
 
-    # Handle POST requests to create a new info item.
     def post(self):
-        # Parse incoming JSON data from the request.
+        # Parse and validate incoming data, showcasing how an element can accept a visitor for validation.
         parser = reqparse.RequestParser()
+        # Parsing request data.
         parser.add_argument('firstname', type=str, required=True, location='json')
         parser.add_argument('lastname', type=str, required=True, location='json')
         parser.add_argument('email', type=str, required=True, location='json')
@@ -54,24 +56,19 @@ class InfoDetails(Resource):
         parser.add_argument('mobilenumber', type=str, required=True, location='json')
         args = parser.parse_args()
 
-        # Create an InfoItem instance from the parsed arguments.
+        # Creating an InfoItem element and accepting a validation visitor.
         info_item = InfoItem(**args)
+        validator = InfoItemValidator()  # The visitor instance.
+        errors = info_item.accept(validator)  # Element accepts visitor.
 
-        # Instantiate a validator visitor to validate the info item.
-        validator = InfoItemValidator()
-        # Use the accept method to apply validation logic to the info item.
-        errors = info_item.accept(validator)
-
-        # Check if there were any validation errors.
         if errors:
-            # Return errors as JSON response with HTTP status code 400 (Bad Request).
+            # If validation fails, return errors.
             return jsonify({"status": "error", "errors": errors}), 400
 
-        # Insert the info item into the database if validation passes.
+        # If validation passes, insert the info item into the database.
         response = insert_info_item(**args)
-        # Return a success response with the inserted info item details.
         return jsonify(response)
-
+    
     # Handle PUT requests to update an existing info item by its ID.
     def put(self, item_id):
         parser = reqparse.RequestParser()
