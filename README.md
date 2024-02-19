@@ -66,3 +66,7 @@ Expand the database schema to include more details about students.
 ## Contributing
 
 Contributions to this project are welcome. Please fork the repository and submit a pull request with your improvements.
+
+## Screenshots
+
+![RIT APP](URL "/Users/kayahir/Desktop/SWEN732/RITInfo/images/RITStudentSimulator.png")
