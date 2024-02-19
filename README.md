@@ -88,11 +88,11 @@ The Visitor pattern is an important design choice in our project since it increa
 
 ### Advantages of Using the Visitor Pattern
 
-1. Extensibility: The Visitor design enables us to add new actions to InfoItem objects without altering them. This is especially useful when our program expands and requires more processing or validation of user input.
+1. Extensibility: The Visitor design enables to add new actions to InfoItem objects without altering them. This is especially useful when my program expands and requires more processing or validation of user input.
 
-2. Separation of Concerns: By enclosing operation functionality inside visitor classes, we keep our InfoItem class focused on its core function of representing user information. This split improves the maintainability and clarity of our codebase.
+2. Separation of Concerns: By enclosing operation functionality inside visitor classes, I keep the InfoItem class focused on its core function of representing user information. This split improves the maintainability and clarity of my codebase.
 
-3. Flexibility in actions: Different visitor classes can perform a variety of actions on the same collection of InfoItem objects. This flexibility allows us to simply integrate new actions (for example, data exporting and extra validation criteria) without affecting the basic structure of our components.
+3. Flexibility in actions: Different visitor classes can perform a variety of actions on the same collection of InfoItem objects. This flexibility allows to simply integrate new actions (for example, data exporting and extra validation criteria) without affecting the basic structure of my components.
 
 ### Conclusion
 
