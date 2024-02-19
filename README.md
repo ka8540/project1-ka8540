@@ -69,4 +69,4 @@ Contributions to this project are welcome. Please fork the repository and submit
 
 ## Screenshots
 
-<img src="images/S1.png" alt="RIT APP" width="100" height="100">
+<img src="images/S1.png" alt="RIT APP" width="400" height="400">
