@@ -71,6 +71,5 @@ Contributions to this project are welcome. Please fork the repository and submit
 
 <img src="images/S1.png" alt="RIT APP" width="200" height="400">
 <img src="images/S2.png" alt="RIT APP" width="200" height="400">
-<img src="images/S1.png" alt="RIT APP" width="200" height="400">
 
 ![HTTP](images/HTTP.png);
