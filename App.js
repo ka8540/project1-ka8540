@@ -49,7 +49,7 @@ export default function App() {
       {/* Orange Navbar */}
       <View style={styles.navbar}>
         <Image 
-          source={{ uri: '/Users/kayahir/Desktop/SWEN732/RITInfo/images/RIT_Logo.png' }} 
+          source={{ uri: '/Users/kayahir/Desktop/project1-ka8540/RITInfo/images/RIT_Logo.png' }} 
           style={styles.image}
         />
       </View>
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   image: {
-    width: 120, // Adjust the width as needed
-    height: 100, // Adjust the height as needed
+    width: 120, 
+    height: 100,
     borderRadius: 10,
     marginVertical: 10,
   },
