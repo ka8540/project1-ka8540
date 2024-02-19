@@ -69,4 +69,4 @@ Contributions to this project are welcome. Please fork the repository and submit
 
 ## Screenshots
 
-![RIT APP](RITInfo/images/S1.png)
+![RIT APP](images/S1.png);
